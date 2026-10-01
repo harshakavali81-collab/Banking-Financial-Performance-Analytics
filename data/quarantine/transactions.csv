@@ -1,0 +1,16 @@
+transaction_id,account_id,transaction_date,transaction_type,amount,channel,reason
+40001,2139,2025-01-01,Transfer Out,-100.0,Internet,non-positive amount
+40002,728,2025-01-01,Deposit,-100.0,Mobile,non-positive amount
+40003,1135,2025-01-01,Card Payment,-100.0,Internet,non-positive amount
+40004,202,2025-01-01,Card Payment,-100.0,Atm,non-positive amount
+40005,1771,2025-01-01,Transfer In,-100.0,Internet,non-positive amount
+40006,999999,2025-01-01,Card Payment,1307.88,Mobile,unknown account
+40007,999999,2025-01-01,Card Payment,2172.89,Internet,unknown account
+40008,999999,2025-01-01,Withdrawal,777.23,Atm,unknown account
+40009,999999,2025-01-01,Withdrawal,3756.27,Branch,unknown account
+40010,999999,2025-01-01,Transfer In,4586.67,Mobile,unknown account
+40011,2205,,Withdrawal,9488.94,Internet,invalid date
+40012,165,,Withdrawal,6784.8,Mobile,invalid date
+40013,1682,,Deposit,1430.35,Atm,invalid date
+40014,2452,,Withdrawal,8977.52,Mobile,invalid date
+40015,2321,,Transfer In,10031.94,Internet,invalid date

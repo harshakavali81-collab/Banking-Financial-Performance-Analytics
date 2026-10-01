@@ -1,0 +1,10 @@
+{
+  "sqlite_integrity": "ok",
+  "independent_validator": "passed; 12 monthly account and loan roll-forwards",
+  "excel": "11 KPI checks, formula error scan and input propagation passed; all 5 sheets visually inspected",
+  "pdf": "3 rendered pages visually inspected",
+  "dashboard_javascript": "total and branch KPI values, branch filter and trend toggle passed",
+  "dashboard_browser_rendering": "not tested; local browser executable unavailable",
+  "power_bi_desktop": "not available; CSV, DAX, theme and build guide included",
+  "github_repository": "https://github.com/harshakavali81-collab/Banking-Financial-Performance-Analytics"
+}

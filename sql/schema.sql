@@ -1,0 +1,12 @@
+PRAGMA foreign_keys=ON;
+CREATE TABLE branches(branch_id INTEGER PRIMARY KEY,branch_name TEXT NOT NULL,city TEXT NOT NULL,region TEXT NOT NULL);
+CREATE TABLE customers(customer_id INTEGER PRIMARY KEY,customer_name TEXT,age INTEGER CHECK(age>=18),occupation TEXT,annual_income REAL CHECK(annual_income>=0),credit_score INTEGER CHECK(credit_score BETWEEN 300 AND 900),home_branch_id INTEGER REFERENCES branches(branch_id));
+CREATE TABLE accounts(account_id INTEGER PRIMARY KEY,customer_id INTEGER REFERENCES customers(customer_id),branch_id INTEGER REFERENCES branches(branch_id),account_type TEXT,open_date TEXT,opening_balance REAL CHECK(opening_balance>=0));
+CREATE TABLE transactions(transaction_id INTEGER PRIMARY KEY,account_id INTEGER REFERENCES accounts(account_id),transaction_date TEXT,transaction_type TEXT,amount REAL CHECK(amount>0),channel TEXT,signed_amount REAL,customer_id INTEGER REFERENCES customers(customer_id),branch_id INTEGER REFERENCES branches(branch_id));
+CREATE TABLE loans(loan_id INTEGER PRIMARY KEY,customer_id INTEGER REFERENCES customers(customer_id),branch_id INTEGER REFERENCES branches(branch_id),loan_type TEXT,origination_date TEXT,original_principal REAL CHECK(original_principal>0),annual_interest_rate REAL,tenure_months INTEGER);
+CREATE TABLE repayments(payment_id INTEGER PRIMARY KEY,loan_id INTEGER REFERENCES loans(loan_id),due_date TEXT,payment_date TEXT,principal_due REAL,interest_due REAL,principal_paid REAL,interest_paid REAL,payment_status TEXT);
+CREATE TABLE account_snapshots(snapshot_date TEXT,account_id INTEGER REFERENCES accounts(account_id),balance REAL CHECK(balance>=0),PRIMARY KEY(snapshot_date,account_id));
+CREATE TABLE loan_snapshots(snapshot_date TEXT,loan_id INTEGER REFERENCES loans(loan_id),outstanding REAL CHECK(outstanding>=0),days_past_due INTEGER CHECK(days_past_due>=0),PRIMARY KEY(snapshot_date,loan_id));
+CREATE TABLE branch_financials(snapshot_date TEXT,branch_id INTEGER REFERENCES branches(branch_id),interest_income REAL,interest_expense REAL,fee_income REAL,operating_expense REAL,PRIMARY KEY(snapshot_date,branch_id));
+CREATE INDEX ix_tx_account_date ON transactions(account_id,transaction_date);
+CREATE INDEX ix_loan_snapshot ON loan_snapshots(loan_id,snapshot_date);

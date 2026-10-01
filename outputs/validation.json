@@ -1,0 +1,11 @@
+{
+  "transaction_count": true,
+  "raw_rows_accounted": true,
+  "account_ledger_reconciles": true,
+  "loan_principal_reconciles": true,
+  "branch_deposits_reconcile": true,
+  "branch_profit_reconciles": true,
+  "nonnegative_account_balances": true,
+  "foreign_keys_valid": true,
+  "dpd_bounds": true
+}

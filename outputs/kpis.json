@@ -1,0 +1,21 @@
+{
+  "customers": 2500,
+  "accounts": 3200,
+  "loans": 1200,
+  "deposit_balance": 523202617.11,
+  "loan_outstanding": 899819122.17,
+  "loan_to_deposit_ratio": 1.7198291689370866,
+  "dpd90_exposure_ratio": 0.35992400940420655,
+  "dpd90_loan_rate": 0.33416666666666667,
+  "transaction_count": 40000,
+  "transaction_value": 267471330.32,
+  "digital_share": 0.71705,
+  "interest_income": 132460122.17,
+  "interest_expense": 60075941.31,
+  "net_interest_income": 72384180.86,
+  "fee_income": 720000.0,
+  "operating_expense": 9960000.0,
+  "operating_profit": 63144180.86,
+  "cost_to_income_ratio": 0.13624391769157704,
+  "deposit_growth": -0.004511993181785634
+}

@@ -1,0 +1,8 @@
+{
+  "raw_transactions": 40115,
+  "exact_duplicates_removed": 100,
+  "transactions_quarantined": 15,
+  "clean_transactions": 40000,
+  "channel_aliases_normalized": 40,
+  "missing_occupations_labelled_unknown": 20
+}

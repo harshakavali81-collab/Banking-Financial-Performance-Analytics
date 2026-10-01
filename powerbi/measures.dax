@@ -1,0 +1,47 @@
+// Create each named measure separately. Table/column names match clean CSVs.
+Snapshot Month = EOMONTH(MAX(dates[date]), 0)
+
+Deposit Balance =
+VAR D = [Snapshot Month]
+RETURN CALCULATE(SUM(account_snapshots[balance]), REMOVEFILTERS(dates), account_snapshots[snapshot_date] = D)
+
+Loan Outstanding =
+VAR D = [Snapshot Month]
+RETURN CALCULATE(SUM(loan_snapshots[outstanding]), REMOVEFILTERS(dates), loan_snapshots[snapshot_date] = D)
+
+DPD90 Outstanding =
+VAR D = [Snapshot Month]
+RETURN CALCULATE(SUM(loan_snapshots[outstanding]), REMOVEFILTERS(dates), loan_snapshots[snapshot_date] = D, KEEPFILTERS(loan_snapshots[days_past_due] >= 90))
+
+DPD90 Exposure Ratio = DIVIDE([DPD90 Outstanding], [Loan Outstanding])
+
+Snapshot Loan Count =
+VAR D = [Snapshot Month]
+RETURN CALCULATE(COUNTROWS(loan_snapshots), REMOVEFILTERS(dates), loan_snapshots[snapshot_date] = D)
+
+DPD90 Loan Count =
+VAR D = [Snapshot Month]
+RETURN CALCULATE(COUNTROWS(loan_snapshots), REMOVEFILTERS(dates), loan_snapshots[snapshot_date] = D, KEEPFILTERS(loan_snapshots[days_past_due] >= 90))
+
+DPD90 Loan Rate = DIVIDE([DPD90 Loan Count], [Snapshot Loan Count])
+
+Loan to Deposit Ratio = DIVIDE([Loan Outstanding], [Deposit Balance])
+
+Interest Income = SUM(branch_financials[interest_income])
+Interest Expense = SUM(branch_financials[interest_expense])
+Net Interest Income = [Interest Income] - [Interest Expense]
+Fee Income = SUM(branch_financials[fee_income])
+Operating Income = [Net Interest Income] + [Fee Income]
+Operating Expenses = SUM(branch_financials[operating_expense])
+Operating Profit = [Operating Income] - [Operating Expenses]
+Cost to Income = DIVIDE([Operating Expenses], [Operating Income])
+Transactions = COUNTROWS(transactions)
+Transaction Value = SUM(transactions[amount])
+Digital Transactions = CALCULATE([Transactions], KEEPFILTERS(transactions[channel] IN {"Mobile", "Internet"}))
+Digital Share = DIVIDE([Digital Transactions], [Transactions])
+Account Customers = DISTINCTCOUNT(accounts[customer_id])
+Account Count = COUNTROWS(accounts)
+Average Account Balance = DIVIDE([Deposit Balance], [Account Count])
+Scheduled Due = SUM(repayments[principal_due]) + SUM(repayments[interest_due])
+Collected Amount = SUM(repayments[principal_paid]) + SUM(repayments[interest_paid])
+Scheduled Collection Ratio = DIVIDE([Collected Amount], [Scheduled Due])
